@@ -8,13 +8,12 @@ function Stage({ children, ...props }) {
 }
 
 function State({ state, ...props }) {
-  return <div {...props}>Parent state: {JSON.stringify(state)}</div>;
+  return (
+    <div {...props}>
+      Parent state: <pre>{JSON.stringify(state)}</pre>
+    </div>
+  );
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-flow: column;
-`;
 
 function loadStories() {
   require("../src/stories/index.js");
@@ -23,10 +22,10 @@ function loadStories() {
 addDecorator(story => (
   <Stage>
     {(state, setState) => (
-      <Wrapper>
+      <div style={{ display: "flex", flexFlow: "column" }}>
         {story({ state, setState })}
         <State state={state} />
-      </Wrapper>
+      </div>
     )}
   </Stage>
 ));
